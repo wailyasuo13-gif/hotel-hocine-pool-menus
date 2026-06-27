@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menu — Hocine Hotel ★★★★</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --gold:    #C9A84C;
+    --gold-lt: #E8D5A3;
+    --cream:   #FAF6EF;
+    --ink:     #1C1712;
+    --warm:    #3D2B1F;
+    --muted:   #7A6A58;
+    --rule:    rgba(201,168,76,0.35);
+    --marine:    #1B4F72;
+    --marine-mid:#2E86AB;
+    --marine-lt: #6EC6E8;
+  }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+  }
+
+  /* ── COVER ─────────────────────────────── */
+  .cover {
+    background: linear-gradient(160deg, var(--marine) 0%, var(--marine-mid) 55%, var(--marine-lt) 100%);
+    color: var(--cream);
+    text-align: center;
+    padding: 64px 32px 56px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before, .cover::after {
+    content: '';
+    position: absolute;
+    left: 50%; transform: translateX(-50%);
+    width: 260px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+  .cover::before { top: 40px; }
+  .cover::after  { bottom: 40px; }
+
+  .hotel-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    font-weight: 300;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--gold-lt);
+    position: relative;
+    z-index: 1;
+  }
+  .stars {
+    color: var(--gold);
+    font-size: 1rem;
+    letter-spacing: .25em;
+    margin: 8px 0 24px;
+    display: block;
+    position: relative;
+    z-index: 1;
+  }
+  .cover-sub {
+    font-size: .7rem;
+    letter-spacing: .35em;
+    text-transform: uppercase;
+    color: rgba(250,246,239,.55);
+    margin-top: 6px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── BODY WRAPPER ───────────────────────── */
+  .menu-body {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 48px 28px 80px;
+  }
+
+  /* ── SECTION HEADER ─────────────────────── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 52px 0 28px;
+  }
+  .section-header .rule { flex: 1; height: 1px; background: var(--rule); }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: .28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+  .section-title span { font-size: .6rem; vertical-align: super; margin-right: 3px; }
+
+  /* ── SUB-SECTION ────────────────────────── */
+  .sub-label {
+    font-size: .62rem;
+    letter-spacing: .3em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 28px 0 12px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  /* ── MENU ITEM ──────────────────────────── */
+  .item {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 9px 0;
+    border-bottom: 1px dashed rgba(0,0,0,.07);
+    gap: 12px;
+  }
+  .item:last-child { border-bottom: none; }
+  .item-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.08rem;
+    font-weight: 400;
+    color: var(--warm);
+    flex: 1;
+  }
+  .item-dots {
+    flex: 1;
+    min-width: 20px;
+    border-bottom: 1px dotted rgba(0,0,0,.18);
+    margin: 0 8px 4px;
+  }
+  .item-price {
+    font-size: .72rem;
+    font-weight: 500;
+    letter-spacing: .08em;
+    color: #1B4F72;
+    white-space: nowrap;
+  }
+
+  /* ── FOOTER ─────────────────────────────── */
+  .menu-footer {
+    text-align: center;
+    margin-top: 72px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+  }
+  .menu-footer .diamond { color: var(--gold); font-size: .8rem; letter-spacing: .4em; }
+  .menu-footer p {
+    font-size: .65rem;
+    letter-spacing: .25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 12px;
+  }
+
+  /* ── SUMMER EFFECT ───────────────────────── */
+  .sun-glow {
+    position: absolute;
+    top: -30%;
+    left: 50%;
+    width: 480px;
+    height: 480px;
+    transform: translateX(-50%);
+    background: radial-gradient(circle, rgba(255,247,214,.55) 0%, rgba(255,247,214,.18) 40%, transparent 70%);
+    pointer-events: none;
+    animation: glow-drift 9s ease-in-out infinite;
+    z-index: 0;
+  }
+  @keyframes glow-drift {
+    0%, 100% { opacity: .65; transform: translateX(-58%) translateY(0); }
+    50%      { opacity: 1;   transform: translateX(-42%) translateY(18px); }
+  }
+  .summer-bubble {
+    position: fixed;
+    bottom: -60px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.95), rgba(110,198,232,.25) 70%, transparent 100%);
+    box-shadow: 0 0 6px rgba(255,255,255,.5);
+    pointer-events: none;
+    z-index: 9999;
+    animation-name: bubble-rise;
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
+  }
+  @keyframes bubble-rise {
+    0%   { opacity: 0; transform: translate(0, 0); }
+    8%   { opacity: .85; }
+    85%  { opacity: .55; }
+    100% { opacity: 0; transform: translate(var(--drift, 24px), -115vh); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sun-glow { animation: none; }
+    .summer-bubble { display: none; }
+  }
+
+  /* ── RESPONSIVE ─────────────────────────── */
+  @media (max-width: 480px) {
+    .item-dots { display: none; }
+    .cover { padding: 48px 20px 44px; }
+  }
+
+  @media print {
+    body { background: white; }
+    .cover { background: var(--marine) !important; -webkit-print-color-adjust: exact; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<header class="cover">
+  <div class="sun-glow"></div>
+  <h1 class="hotel-name">Hocine Hotel</h1>
+  <span class="stars">★ ★ ★ ★</span>
+  <p class="cover-sub">Restaurant &amp; Piscine — Carte</p>
+</header>
+
+<!-- BODY -->
+<main class="menu-body">
+
+  <!-- ══ BOISSONS ══════════════════════════ -->
+  <div class="section-header">
+    <div class="rule"></div>
+    <h2 class="section-title">Boissons</h2>
+    <div class="rule"></div>
+  </div>
+
+  <p class="sub-label">Sodas &amp; Eaux</p>
+  <div class="item"><span class="item-name">Coca-Cola 25 cl</span><span class="item-dots"></span><span class="item-price">300 DA</span></div>
+  <div class="item"><span class="item-name">Coca-Cola 1 L</span><span class="item-dots"></span><span class="item-price">350 DA</span></div>
+  <div class="item"><span class="item-name">Eau minérale — Petite</span><span class="item-dots"></span><span class="item-price">100 DA</span></div>
+  <div class="item"><span class="item-name">Eau minérale — Grande</span><span class="item-dots"></span><span class="item-price">200 DA</span></div>
+  <div class="item"><span class="item-name">Eau gazeuse — Petite</span><span class="item-dots"></span><span class="item-price">100 DA</span></div>
+  <div class="item"><span class="item-name">Eau gazeuse — Grande</span><span class="item-dots"></span><span class="item-price">200 DA</span></div>
+  <div class="item"><span class="item-name">Schweppes 25 cl</span><span class="item-dots"></span><span class="item-price">300 DA</span></div>
+
+  <p class="sub-label">Jus de fruits</p>
+  <div class="item"><span class="item-name">Jus iFruit 33 cl</span><span class="item-dots"></span><span class="item-price">250 DA</span></div>
+  <div class="item"><span class="item-name">Jus iFruit 1 L</span><span class="item-dots"></span><span class="item-price">350 DA</span></div>
+  <div class="item"><span class="item-name">Izem Soda 33 cl</span><span class="item-dots"></span><span class="item-price">300 DA</span></div>
+  <div class="item"><span class="item-name">Izem Jus 33 cl</span><span class="item-dots"></span><span class="item-price">300 DA</span></div>
+
+  <p class="sub-label">Chauds</p>
+  <div class="item"><span class="item-name">Café Capsule</span><span class="item-dots"></span><span class="item-price">300 DA</span></div>
+  <div class="item"><span class="item-name">Infusion</span><span class="item-dots"></span><span class="item-price">150 DA</span></div>
+
+
+  <!-- ══ PLATS ══════════════════════════════ -->
+  <div class="section-header">
+    <div class="rule"></div>
+    <h2 class="section-title">Plats</h2>
+    <div class="rule"></div>
+  </div>
+
+  <p class="sub-label">Salades</p>
+  <div class="item"><span class="item-name">Salade César</span><span class="item-dots"></span><span class="item-price">600 DA</span></div>
+  <div class="item"><span class="item-name">Salade Variée</span><span class="item-dots"></span><span class="item-price">400 DA</span></div>
+
+  <p class="sub-label">Sandwichs</p>
+  <div class="item"><span class="item-name">Crispy Poulet</span><span class="item-dots"></span><span class="item-price">500 DA</span></div>
+  <div class="item"><span class="item-name">Viande</span><span class="item-dots"></span><span class="item-price">600 DA</span></div>
+  <div class="item"><span class="item-name">Mixte</span><span class="item-dots"></span><span class="item-price">700 DA</span></div>
+  <div class="item"><span class="item-name">Shawarma</span><span class="item-dots"></span><span class="item-price">400 DA</span></div>
+
+  <p class="sub-label">Tacos</p>
+  <div class="item"><span class="item-name">Poulet</span><span class="item-dots"></span><span class="item-price">500 DA</span></div>
+  <div class="item"><span class="item-name">Viande</span><span class="item-dots"></span><span class="item-price">600 DA</span></div>
+  <div class="item"><span class="item-name">Mixte</span><span class="item-dots"></span><span class="item-price">700 DA</span></div>
+
+  <p class="sub-label">Hamburgers</p>
+  <div class="item"><span class="item-name">Cheese Burger</span><span class="item-dots"></span><span class="item-price">400 DA</span></div>
+  <div class="item"><span class="item-name">Big Burger</span><span class="item-dots"></span><span class="item-price">500 DA</span></div>
+
+  <p class="sub-label">Pizzas</p>
+  <div class="item"><span class="item-name">Margherita</span><span class="item-dots"></span><span class="item-price">400 DA</span></div>
+  <div class="item"><span class="item-name">Thon</span><span class="item-dots"></span><span class="item-price">450 DA</span></div>
+  <div class="item"><span class="item-name">Viande Hachée</span><span class="item-dots"></span><span class="item-price">550 DA</span></div>
+  <div class="item"><span class="item-name">4 Fromages</span><span class="item-dots"></span><span class="item-price">700 DA</span></div>
+  <div class="item"><span class="item-name">4 Saisons</span><span class="item-dots"></span><span class="item-price">700 DA</span></div>
+  <div class="item"><span class="item-name">Pizza Boisée</span><span class="item-dots"></span><span class="item-price">600 DA</span></div>
+
+
+  <!-- ══ DESSERTS ═══════════════════════════ -->
+  <div class="section-header">
+    <div class="rule"></div>
+    <h2 class="section-title">Desserts</h2>
+    <div class="rule"></div>
+  </div>
+
+  <p class="sub-label">Crêpes</p>
+  <div class="item"><span class="item-name">Chocolat</span><span class="item-dots"></span><span class="item-price">350 DA</span></div>
+  <div class="item"><span class="item-name">Fruits</span><span class="item-dots"></span><span class="item-price">700 DA</span></div>
+
+  <p class="sub-label">Gaufres</p>
+  <div class="item"><span class="item-name">Chocolat</span><span class="item-dots"></span><span class="item-price">500 DA</span></div>
+  <div class="item"><span class="item-name">Fruits</span><span class="item-dots"></span><span class="item-price">700 DA</span></div>
+
+  <p class="sub-label">Autres</p>
+  <div class="item"><span class="item-name">Assortiment de gâteaux</span><span class="item-dots"></span><span class="item-price">400 DA</span></div>
+  <div class="item"><span class="item-name">Assortiment de fruits</span><span class="item-dots"></span><span class="item-price">500 DA</span></div>
+  <div class="item"><span class="item-name">Crème brûlée</span><span class="item-dots"></span><span class="item-price">300 DA</span></div>
+
+  <p class="sub-label">Glaces</p>
+  <div class="item"><span class="item-name">Cornito</span><span class="item-dots"></span><span class="item-price">150 DA</span></div>
+  <div class="item"><span class="item-name">Mini Coppa</span><span class="item-dots"></span><span class="item-price">150 DA</span></div>
+  <div class="item"><span class="item-name">Musta Chocolat</span><span class="item-dots"></span><span class="item-price">150 DA</span></div>
+
+  <!-- FOOTER -->
+  <footer class="menu-footer">
+    <p class="diamond">◆ ◆ ◆</p>
+    <p>Hocine Hotel · Restaurant &amp; Piscine · 4 Étoiles</p>
+  </footer>
+
+</main>
+
+<script>
+  // Summer effect: a burst of rising bubbles when the page opens
+  (function () {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const bubbleCount = 22;
+    for (let i = 0; i < bubbleCount; i++) {
+      const bubble = document.createElement('div');
+      bubble.className = 'summer-bubble';
+
+      const size = 6 + Math.random() * 18;
+      const left = Math.random() * 100;
+      const duration = 5 + Math.random() * 5;
+      const delay = Math.random() * 2.5;
+      const drift = (Math.random() * 60 - 30) + 'px';
+
+      bubble.style.width = size + 'px';
+      bubble.style.height = size + 'px';
+      bubble.style.left = left + 'vw';
+      bubble.style.setProperty('--drift', drift);
+      bubble.style.animationDuration = duration + 's';
+      bubble.style.animationDelay = delay + 's';
+
+      document.body.appendChild(bubble);
+
+      bubble.addEventListener('animationend', () => bubble.remove());
+    }
+  })();
+</script>
+
+</body>
+</html>
